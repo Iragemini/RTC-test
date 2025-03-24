@@ -1,3 +1,3 @@
-import { ITransformedMappings } from './mappings';
+import { TransformedMappings } from './mappings';
 
-export { ITransformedMappings };
+export { TransformedMappings };

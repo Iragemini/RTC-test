@@ -1,6 +1,6 @@
 import SimulationAPIClient from '../api/client';
 import ApiError from '../errors/ApiError';
-import { ITransformedMappings } from '../types';
+import { TransformedMappings } from '../types';
 
 const FAILED_TO_FETCH_MESSAGE = 'Failed to fetch mappings';
 
@@ -13,7 +13,7 @@ export default class MappingsService {
   /**
    * Transform an input mappings string to key-value pairs.
    */
-  static transformMappings(mappings: string): ITransformedMappings {
+  static transformMappings(mappings: string): TransformedMappings {
     return Object.fromEntries(
       mappings.split(';').map((entry) => {
         const [key, value] = entry.split(':');
@@ -33,7 +33,7 @@ export default class MappingsService {
    * '4df1b17c-3bfe-4bbb-8b60-12661c2bb190': 'Liverpool',
    * }
    */
-  async getMappings(): Promise<ITransformedMappings> {
+  async getMappings(): Promise<TransformedMappings> {
     try {
       const { mappings } = await this.client.getMappings();
 

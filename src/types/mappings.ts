@@ -1,1 +1,1 @@
-export type ITransformedMappings = Record<string, string>;
+export type TransformedMappings = Record<string, string>;
