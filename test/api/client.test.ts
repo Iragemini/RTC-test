@@ -3,11 +3,10 @@ import axios from 'axios';
 import SimulationAPIClient, { GET_STATE_POSTFIX, GET_MAPPINGS_POSTFIX } from '../../src/api/client';
 import mockState from './__mocks__/data/state';
 import mockMappings from './__mocks__/data/mappings';
+import { API_ERROR, BASE_URL } from '../constants';
 
 vi.mock('axios');
 
-const BASE_URL = 'http//localhost:3000';
-const API_ERROR = 'An error occurred while calling the simulation API.';
 
 describe('Simulated API Client', () => {
   let client: SimulationAPIClient;
