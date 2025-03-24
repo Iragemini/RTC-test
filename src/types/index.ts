@@ -1,3 +1,4 @@
 import { TransformedMappings } from './mappings';
+import { IEvent, IScorePeriods } from './state';
 
-export { TransformedMappings };
+export { TransformedMappings, IEvent, IScorePeriods };
