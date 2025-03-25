@@ -54,6 +54,8 @@ describe('Event storage tests', () => {
     const event = await eventsStorage.getEventById(eventId);
 
     expect(event).exist;
+    expect(event).toEqual(removedPayload);
+
     const { status } = event!;
     expect(status).toEqual(removedStatus);
   });
