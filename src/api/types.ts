@@ -8,4 +8,5 @@ export interface IMappings {
 
 export interface ISimulationAPIClient {
   getState(): Promise<IState>;
+  getMappings(): Promise<IMappings>;
 }
