@@ -1,5 +1,5 @@
-import { IMappings } from '../../../../src/api/types';
-import { TransformedMappings } from '../../../../src/types';
+import { IMappings } from '../../../src/api/types';
+import { TransformedMappings } from '../../../src/types';
 
 const mockMappings: IMappings = {
   mappings:
