@@ -1,8 +1,8 @@
 import { describe, vi, test, beforeEach, expect } from 'vitest';
 import axios from 'axios';
 import SimulationAPIClient, { GET_STATE_POSTFIX, GET_MAPPINGS_POSTFIX } from '../../src/api/client';
-import mockState from './__mocks__/data/state';
-import mockMappings from './__mocks__/data/mappings';
+import mockState from '../__mocks__/data/state';
+import mockMappings from '../__mocks__/data/mappings';
 import { API_ERROR, BASE_URL } from '../constants';
 
 vi.mock('axios');
