@@ -3,4 +3,9 @@ export enum STATUSES {
   PRE = 'PRE',
   LIVE = 'LIVE',
   REMOVED = 'REMOVED',
+}
+
+export enum COMPETITORS {
+  HOME = 'HOME',
+  AWAY = 'AWAY',
 };
