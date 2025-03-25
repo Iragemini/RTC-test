@@ -19,7 +19,11 @@ export default class EventsStorage implements IEventsStorage {
    * Update existing event
    */
   async updateEvent(eventId: string, payload: IStoredEvent) {
-    this.storage.set(eventId, payload);
+    const currentState = await this.getEventById(eventId);
+    this.storage.set(eventId, {
+      ...currentState,
+      ...payload,
+    });
   }
 
   /**

@@ -48,5 +48,8 @@ export interface IEventsStorage {
 
 export interface IEventsService {
   processEvents: (events: IEvent[], mappings: TransformedMappings) => Promise<void>;
-  saveEvents: (events: IEvent[], mappings: TransformedMappings) => Promise<void>;
+  saveEvents: (events: IStoredEvent[]) => Promise<void>;
+  updateEvents: (events: IStoredEvent[]) => Promise<void>;
+  removeEvents: (eventIds: string[]) => Promise<void>;
+  getActiveEvents: () => Promise<Events>;
 }

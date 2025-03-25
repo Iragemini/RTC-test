@@ -12,6 +12,8 @@ describe('Event storage tests', () => {
   beforeAll(() => {
     vi.clearAllMocks();
     eventsStorage = new EventsStorage();
+
+    vi.spyOn(eventsStorage, 'getEventById');
   });
 
   test('Should return current state', async () => {
@@ -42,6 +44,8 @@ describe('Event storage tests', () => {
 
   test('Should update event', async () => {
     await eventsStorage.updateEvent(eventId, updatedPayload);
+    expect(eventsStorage.getEventById).toHaveBeenCalledWith(eventId);
+
     const event = await eventsStorage.getEventById(eventId);
 
     expect(event).exist;
