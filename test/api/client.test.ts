@@ -27,7 +27,7 @@ describe('Simulated API Client', () => {
   test('Should handle get state API errors', async () => {
     vi.mocked(axios.get).mockRejectedValueOnce(new Error(API_ERROR));
 
-    await expect(client.getState()).rejects.toThrow(API_ERROR);
+    await expect(client.getState()).rejects.toThrowError(API_ERROR);
     expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/${GET_STATE_POSTFIX}`);
   });
 
@@ -43,7 +43,7 @@ describe('Simulated API Client', () => {
   test('Should handle get mappings API errors', async () => {
     vi.mocked(axios.get).mockRejectedValueOnce(new Error(API_ERROR));
 
-    await expect(client.getMappings()).rejects.toThrow(API_ERROR);
+    await expect(client.getMappings()).rejects.toThrowError(API_ERROR);
     expect(axios.get).toHaveBeenCalledWith(`${BASE_URL}/${GET_MAPPINGS_POSTFIX}`);
   });
 });

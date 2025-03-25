@@ -33,6 +33,6 @@ describe('Mapping service tests', () => {
   test('Should handle errors', async () => {
     vi.mocked(client.getState).mockRejectedValueOnce(new Error(API_ERROR));
 
-    await expect(stateService.getState()).rejects.toThrow(ApiError);
+    await expect(stateService.getState()).rejects.toThrowError(ApiError);
   });
 });
