@@ -1,7 +1,7 @@
 import { describe, vi, test, beforeAll, expect } from 'vitest';
-import StateService from '../../src/services/stateService';
+import StateService from '../../src/services/state';
 import ApiError from '../../src/errors/ApiError';
-import mockState, { mappedEvents } from '../api/__mocks__/data/state';
+import mockState, { mappedEvents } from '../__mocks__/data/state';
 import SimulationAPIClient from '../../src/api/client';
 import { API_ERROR, BASE_URL } from '../constants';
 
@@ -33,6 +33,6 @@ describe('Mapping service tests', () => {
   test('Should handle errors', async () => {
     vi.mocked(client.getState).mockRejectedValueOnce(new Error(API_ERROR));
 
-    await expect(stateService.getState()).rejects.toThrow(ApiError);
+    await expect(stateService.getState()).rejects.toThrowError(ApiError);
   });
 });

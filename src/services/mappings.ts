@@ -1,13 +1,13 @@
 import SimulationAPIClient from '../api/client';
 import ApiError from '../errors/ApiError';
-import { TransformedMappings } from '../types';
+import { TransformedMappings, IMappingsService } from '../types';
 
 const FAILED_TO_FETCH_MESSAGE = 'Failed to fetch mappings';
 
 /**
  * Create a new instance of MappingsService
  */
-export default class MappingsService {
+export default class MappingsService implements IMappingsService {
   constructor(private client: SimulationAPIClient) {}
 
   /**

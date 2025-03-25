@@ -1,4 +1,28 @@
-import { TransformedMappings } from './mappings';
-import { IEvent, IScorePeriods } from './state';
+import { TransformedMappings, IMappingsService } from './mappings';
+import { IEvent, IScorePeriods, IStateService } from './state';
+import {
+  IStoredEvent,
+  IEventsStorage,
+  Events,
+  EventStatus,
+  IEventsService,
+  ICompetitors,
+  IScore,
+  Period,
+} from './events';
 
-export { TransformedMappings, IEvent, IScorePeriods };
+export {
+  IMappingsService,
+  IStateService,
+  IEventsService,
+  IEvent,
+  IScorePeriods,
+  IStoredEvent,
+  IEventsStorage,
+  TransformedMappings,
+  Events,
+  EventStatus,
+  ICompetitors,
+  IScore,
+  Period,
+};
