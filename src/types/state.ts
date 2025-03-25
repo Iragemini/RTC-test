@@ -14,3 +14,7 @@ export interface IEvent {
   sportEventStatusId: string;
   scorePeriods: IScorePeriods[];
 }
+
+export interface IStateService {
+  getState: () => Promise<IEvent[]>;
+}

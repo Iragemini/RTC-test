@@ -1,10 +1,10 @@
 import SimulationAPIClient from '../api/client';
 import ApiError from '../errors/ApiError';
-import { IEvent, IScorePeriods } from '../types';
+import { IEvent, IScorePeriods, IStateService } from '../types';
 
 const FAILED_TO_FETCH_MESSAGE = 'Failed to fetch state';
 
-export default class StateService {
+export default class StateService implements IStateService {
   constructor(private client: SimulationAPIClient) {}
 
   /**
