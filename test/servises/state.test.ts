@@ -1,5 +1,5 @@
 import { describe, vi, test, beforeAll, expect } from 'vitest';
-import StateService from '../../src/services/stateService';
+import StateService from '../../src/services/state';
 import ApiError from '../../src/errors/ApiError';
 import mockState, { mappedEvents } from '../api/__mocks__/data/state';
 import SimulationAPIClient from '../../src/api/client';

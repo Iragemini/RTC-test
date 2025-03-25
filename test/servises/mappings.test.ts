@@ -1,5 +1,5 @@
 import { describe, vi, test, beforeAll, expect } from 'vitest';
-import MappingsService from '../../src/services/mappingsService';
+import MappingsService from '../../src/services/mappings';
 import ApiError from '../../src/errors/ApiError';
 import mockMappings, { transformedMappings } from '../api/__mocks__/data/mappings';
 import SimulationAPIClient from '../../src/api/client';
