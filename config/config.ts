@@ -22,7 +22,7 @@ const config: Config = {
   consumer: {
     pollingInterval: isNaN(pollingInterval) ? 1000 : pollingInterval,
   },
-  simulationBaseUrl: process.env.SIMULATION_BASE_URL || 'localhost:3000',
+  simulationBaseUrl: process.env.SIMULATION_BASE_URL || 'http://localhost:3000',
 };
 
 export { Config, config };
