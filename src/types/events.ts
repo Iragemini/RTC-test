@@ -51,5 +51,5 @@ export interface IEventsService {
   saveEvents: (events: IStoredEvent[]) => Promise<void>;
   updateEvents: (events: IStoredEvent[]) => Promise<void>;
   removeEvents: (eventIds: string[]) => Promise<void>;
-  getActiveEvents: () => Promise<Events>;
+  getActiveEvents: () => Promise<object>;
 }

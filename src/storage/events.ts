@@ -11,14 +11,14 @@ export default class EventsStorage implements IEventsStorage {
   /**
    * Add new event to the storage
    */
-  async saveEvent(eventId: string, payload: IStoredEvent) {
+  async saveEvent(eventId: string, payload: IStoredEvent): Promise<void> {
     this.storage.set(eventId, payload);
   }
 
   /**
    * Update existing event
    */
-  async updateEvent(eventId: string, payload: IStoredEvent) {
+  async updateEvent(eventId: string, payload: IStoredEvent): Promise<void> {
     const currentState = await this.getEventById(eventId);
     this.storage.set(eventId, {
       ...currentState,
@@ -29,7 +29,7 @@ export default class EventsStorage implements IEventsStorage {
   /**
    * Mark event as REMOVED
    */
-  async removeEvent(eventId: string) {
+  async removeEvent(eventId: string): Promise<void> {
     const event = await this.getEventById(eventId);
 
     if (event) {
@@ -45,15 +45,18 @@ export default class EventsStorage implements IEventsStorage {
   /**
    * Get event by the provided id
    */
-  async getEventById(eventId: string) {
+  async getEventById(eventId: string): Promise<IStoredEvent | null> {
     return this.storage.get(eventId) ?? null;
   }
 
   /**
    * Get all active events
    */
-  async getActiveEvents() {
-    return new Map([...this.storage].filter(([, value]) => value.status !== STATUSES.REMOVED));
+  async getActiveEvents(): Promise<Map<string, IStoredEvent>> {
+    const events = new Map(
+      [...this.storage].filter(([, value]) => value.status !== STATUSES.REMOVED)
+    );
+    return events;
   }
 
   /**

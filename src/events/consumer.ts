@@ -43,7 +43,9 @@ export default class EventsConsumer {
     try {
       const state = await this.stateService.getState();
       const mappings = await this.mappingsService.getMappings();
-      this.processEvent(state, mappings);
+      if (state.length) {
+        await this.processEvent(state, mappings);
+      }
     } catch (error) {
       throw error instanceof ApiError
         ? error

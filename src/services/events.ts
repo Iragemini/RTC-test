@@ -12,8 +12,6 @@ import {
   Events,
 } from '../types';
 
-const UNKNOWN = 'UNKNOWN';
-
 export default class EventsService implements IEventsService {
   constructor(private storage: IEventsStorage) {
     this.storage = storage;
@@ -46,11 +44,11 @@ export default class EventsService implements IEventsService {
       const competitors: ICompetitors = {
         [COMPETITORS.HOME]: {
           type: COMPETITORS.HOME,
-          name: mappings[event.homeCompetitorId] || UNKNOWN,
+          name: mappings[event.homeCompetitorId],
         },
         [COMPETITORS.AWAY]: {
           type: COMPETITORS.AWAY,
-          name: mappings[event.awayCompetitorId] || UNKNOWN,
+          name: mappings[event.awayCompetitorId],
         },
       };
 
@@ -60,10 +58,12 @@ export default class EventsService implements IEventsService {
         id: event.eventId,
         status,
         scores,
-        startTime: new Date(Number(event.startTime)).toISOString(),
-        sport: mappings[event.sportId] || UNKNOWN,
+        ...(Number.isNaN(event.startTime)
+          ? { startTime: '' }
+          : { startTime: new Date(Number(event.startTime)).toISOString() }),
+        sport: mappings[event.sportId],
         competitors,
-        competition: mappings[event.competitionId] || UNKNOWN,
+        competition: mappings[event.competitionId],
       };
     });
   }
@@ -105,7 +105,7 @@ export default class EventsService implements IEventsService {
       return this.storage.saveEvent(eventId, event);
     });
 
-    await Promise.all(saveBatch);
+    Promise.all(saveBatch);
   }
 
   /**
@@ -135,8 +135,8 @@ export default class EventsService implements IEventsService {
   /**
    * Get active events from the storage
    */
-  async getActiveEvents(): Promise<Events> {
+  async getActiveEvents(): Promise<object> {
     const events = await this.storage.getActiveEvents();
-    return events;
+    return Object.fromEntries(events);
   }
 }
