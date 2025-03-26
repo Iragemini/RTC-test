@@ -5,6 +5,8 @@ import ApiError from '../../src/errors/ApiError';
 import SimulationAPIClient from '../../src/api/client';
 import { API_ERROR, BASE_URL } from '../constants';
 import EventsStorage from '../../src/storage/events';
+import { mappedEvents } from '../__mocks__/data/state';
+import { transformedMappings } from '../__mocks__/data/mappings';
 
 vi.mock('../../src/api/client', () => {
   return {
@@ -23,10 +25,10 @@ vi.mock('../../src/storage/events', () => {
 vi.mock('../../src/services', () => {
   return {
     StateService: vi.fn().mockImplementation(() => ({
-      getState: vi.fn().mockResolvedValue([]),
+      getState: vi.fn().mockResolvedValue(mappedEvents),
     })),
     MappingsService: vi.fn().mockImplementation(() => ({
-      getMappings: vi.fn().mockResolvedValue({}),
+      getMappings: vi.fn().mockResolvedValue(transformedMappings),
     })),
     EventsService: vi.fn().mockImplementation(() => ({
       processEvents: vi.fn(),
@@ -94,6 +96,15 @@ describe('EventsConsumer', () => {
     await consumer.processEvent([], {});
 
     expect(eventsService.processEvents).toHaveBeenCalledTimes(1);
+  });
+
+  test('Should process events only if the state is not empty', async () => {
+    vi.mocked(stateService.getState).mockResolvedValueOnce([]);
+    await consumer.start();
+
+    expect(stateService.getState).toHaveBeenCalledTimes(1);
+    expect(mappingsService.getMappings).toHaveBeenCalledTimes(1);
+    expect(consumer.processEvent).not.toHaveBeenCalled();
   });
 
   test('Should throw error when events service fails', async () => {

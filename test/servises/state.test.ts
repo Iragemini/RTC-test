@@ -30,6 +30,14 @@ describe('Mapping service tests', () => {
     expect(result).toEqual(mappedEvents);
   });
 
+  test('Should return an empty array if events are empty string', async () => {
+    vi.mocked(client.getState).mockResolvedValueOnce({ odds: '' });
+    const result = await stateService.getState();
+
+    expect(client.getState).toHaveBeenCalledOnce();
+    expect(result).toEqual([]);
+  });
+
   test('Should handle errors', async () => {
     vi.mocked(client.getState).mockRejectedValueOnce(new Error(API_ERROR));
 
