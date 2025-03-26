@@ -84,6 +84,6 @@ describe('Event service tests', () => {
     const events = await eventService.getActiveEvents();
 
     expect(storage.getActiveEvents).toHaveBeenCalledOnce();
-    expect(events).toEqual(state);
+    expect(events).toEqual(Object.fromEntries(state));
   });
 });

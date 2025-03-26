@@ -2,20 +2,22 @@ import express, { Request, Response, NextFunction } from 'express';
 import { config } from '../config/config';
 import { eventsConsumer, eventsService } from './dependencies';
 import { clientRouter } from './routes';
+import errorHandler from './middleware/errorHandler';
 
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', (err: Error) => {
   console.error('Uncaught Exception:', err);
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
 const {
   server: { port },
 } = config;
-const app = express();
+
+const app: express.Application = express();
 
 app.use(express.json());
 
@@ -26,10 +28,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error('Error:', err);
-  res.status(500).json({ message: 'Internal Server Error' });
-});
+app.use(errorHandler);
 
 app.listen(port, async () => {
   console.log(`Server is running at port ${port}...`);

@@ -12,12 +12,15 @@ interface Config {
   simulationBaseUrl: string;
 }
 
+const port = parseInt(process.env.PORT || '4000', 10);
+const pollingInterval = parseInt(process.env.POLLING_INTERVAL || '1000', 10);
+
 const config: Config = {
   server: {
-    port: parseInt(process.env.PORT || '4000', 10),
+    port: isNaN(port) ? 4000 : port,
   },
   consumer: {
-    pollingInterval: parseInt(process.env.POLLING_INTERVAL || '1000', 10),
+    pollingInterval: isNaN(pollingInterval) ? 1000 : pollingInterval,
   },
   simulationBaseUrl: process.env.SIMULATION_BASE_URL || 'localhost:3000',
 };

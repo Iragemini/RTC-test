@@ -26,6 +26,7 @@ export default class StateService implements IStateService {
           return { period, home, away };
         });
       }
+
       return {
         eventId: values[0],
         sportId: values[1],
@@ -46,7 +47,7 @@ export default class StateService implements IStateService {
     try {
       const { odds } = await this.client.getState();
 
-      return StateService.mapEvents(odds);
+      return odds ? StateService.mapEvents(odds) : [];
     } catch (error) {
       let message = FAILED_TO_FETCH_MESSAGE;
 

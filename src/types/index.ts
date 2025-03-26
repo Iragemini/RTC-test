@@ -9,6 +9,7 @@ import {
   ICompetitors,
   IScore,
   Period,
+  ActiveEvents,
 } from './events';
 
 export {
@@ -25,4 +26,5 @@ export {
   ICompetitors,
   IScore,
   Period,
+  ActiveEvents,
 };
