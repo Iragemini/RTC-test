@@ -36,6 +36,7 @@ export interface IStoredEvent {
 }
 
 export type Events = Map<string, IStoredEvent>;
+export type ActiveEvents = Record<string, IStoredEvent>;
 
 export interface IEventsStorage {
   saveEvent: (eventId: string, payload: IStoredEvent) => Promise<void>;
@@ -51,5 +52,5 @@ export interface IEventsService {
   saveEvents: (events: IStoredEvent[]) => Promise<void>;
   updateEvents: (events: IStoredEvent[]) => Promise<void>;
   removeEvents: (eventIds: string[]) => Promise<void>;
-  getActiveEvents: () => Promise<object>;
+  getActiveEvents: () => Promise<ActiveEvents>;
 }

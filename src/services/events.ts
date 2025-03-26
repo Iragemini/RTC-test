@@ -9,7 +9,7 @@ import {
   IScore,
   Period,
   IEventsService,
-  Events,
+  ActiveEvents,
 } from '../types';
 
 export default class EventsService implements IEventsService {
@@ -135,7 +135,7 @@ export default class EventsService implements IEventsService {
   /**
    * Get active events from the storage
    */
-  async getActiveEvents(): Promise<object> {
+  async getActiveEvents(): Promise<ActiveEvents> {
     const events = await this.storage.getActiveEvents();
     return Object.fromEntries(events);
   }
