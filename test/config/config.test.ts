@@ -18,7 +18,7 @@ describe('Config Module', () => {
 
     expect(config.server.port).toBe(4000);
     expect(config.consumer.pollingInterval).toBe(1000);
-    expect(config.simulationBaseUrl).toBe('localhost:3000');
+    expect(config.simulationBaseUrl).toBe('http://localhost:3000');
   });
 
   test('Should correctly load environment variables', async () => {
