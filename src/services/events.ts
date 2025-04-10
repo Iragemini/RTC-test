@@ -72,6 +72,9 @@ export default class EventsService implements IEventsService {
    * Process the events
    */
   async processEvents(events: IEvent[], mappings: TransformedMappings): Promise<void> {
+    if (!events.length) {
+      return;
+    }
     const activeEvents = await this.storage.getActiveEvents();
 
     const eventIds = events.reduce<string[]>((acc, event) => {
@@ -136,7 +139,15 @@ export default class EventsService implements IEventsService {
    * Get active events from the storage
    */
   async getActiveEvents(): Promise<ActiveEvents> {
-    const events = await this.storage.getActiveEvents();
-    return Object.fromEntries(events);
+    let events = {};
+
+    try {
+      const map = await this.storage.getActiveEvents();
+      events = Object.fromEntries(map);
+    } catch (error) {
+      console.error('Failed to fetch active events:', error);
+    }
+
+    return events;
   }
 }

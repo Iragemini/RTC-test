@@ -5,7 +5,6 @@ import {
   IEvent,
   IEventsService,
 } from '../types';
-import ApiError from '../errors/ApiError';
 
 interface IConsumerConfig {
   pollingInterval: number;
@@ -27,12 +26,18 @@ export default class EventsConsumer {
   async start() {
     const { pollingInterval } = this.config;
 
-    await this.fetchAndProcessEvents();
+    try {
+      await this.fetchAndProcessEvents();
+    } catch (err) {
+      console.log('can not fetch');
+    }
 
     this.pollingIntervalId = setInterval(async () => {
-      await this.fetchAndProcessEvents().catch((error) => {
-        console.error('Error consuming data:', error);
-      });
+      try {
+        await this.fetchAndProcessEvents();
+      } catch (error) {
+        console.error('Failed to consume data:', error);
+      }
     }, pollingInterval);
   }
 
@@ -40,16 +45,18 @@ export default class EventsConsumer {
    * Fetch state and mappings from API and process the data
    */
   private async fetchAndProcessEvents() {
+    let state = [] as IEvent[];
+    let mappings = {} as TransformedMappings;
+
     try {
-      const state = await this.stateService.getState();
-      const mappings = await this.mappingsService.getMappings();
+      state = await this.stateService.getState();
+      mappings = await this.mappingsService.getMappings();
+    } catch (error) {
+      console.error('Failed to consume data:', error);
+    } finally {
       if (state.length) {
         await this.processEvent(state, mappings);
       }
-    } catch (error) {
-      throw error instanceof ApiError
-        ? error
-        : new ApiError(error.message || 'Failed to consume data');
     }
   }
 

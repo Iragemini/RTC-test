@@ -39,6 +39,5 @@ app.listen(port, async () => {
   } catch (error) {
     console.error('Failed to start events consumer:', error);
     eventsConsumer.stop();
-    process.exit(1);
   }
 });
